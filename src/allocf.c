@@ -15,7 +15,7 @@
  */
 
 void*
-mrb_default_allocf(mrb_state *mrb, void *p, size_t size, void *ud)
+mrb_default_allocf(mrb_state *mrb, void *p, size_t size)
 {
   if (size == 0) {
     /* `free(NULL)` should be no-op */

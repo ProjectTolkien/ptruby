@@ -5,8 +5,9 @@
 */
 
 /* memory pool implementation */
+struct mrb_state;
 typedef struct mrb_mempool mrb_mempool;
-MRB_API struct mrb_mempool* mrb_mempool_open(mrb_state*);
+MRB_API struct mrb_mempool* mrb_mempool_open(struct mrb_state*);
 MRB_API void mrb_mempool_close(struct mrb_mempool*);
 MRB_API void* mrb_mempool_alloc(struct mrb_mempool*, size_t);
 MRB_API void* mrb_mempool_realloc(struct mrb_mempool*, void*, size_t oldlen, size_t newlen);

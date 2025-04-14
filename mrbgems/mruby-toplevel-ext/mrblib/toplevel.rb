@@ -1,4 +1,4 @@
-class <<self
+class << self
   private
 
   def include(*modules)

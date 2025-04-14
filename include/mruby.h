@@ -166,7 +166,7 @@ struct mrb_state;
  *
  * See @see mrb_default_allocf for the default implementation.
  */
-typedef void* (*mrb_allocf) (struct mrb_state *mrb, void *ptr, size_t size, void *ud);
+typedef void* (*mrb_allocf) (struct mrb_state *mrb, void *ptr, size_t size);
 
 #ifndef MRB_FIXED_STATE_ATEXIT_STACK_SIZE
 #define MRB_FIXED_STATE_ATEXIT_STACK_SIZE 5
@@ -256,7 +256,8 @@ typedef struct mrb_state {
   struct mrb_jmpbuf *jmp;
 
   mrb_allocf allocf;                      /* memory allocation function */
-  void *allocf_ud;                        /* auxiliary data of allocf */
+
+  uint32_t: 32;                           /* LEGACY auxiliary data of allocf */
 
   struct mrb_context *c;
   struct mrb_context *root_c;
@@ -1244,13 +1245,10 @@ MRB_API mrb_state* mrb_open(void);
  *
  * @param f
  *      Reference to the allocation function.
- * @param ud
- *      User data will be passed to custom allocator f.
- *      If user data isn't required just pass NULL.
  * @return
  *      Pointer to the newly created mrb_state.
  */
-MRB_API mrb_state* mrb_open_allocf(mrb_allocf f, void *ud);
+MRB_API mrb_state* mrb_open_allocf(mrb_allocf f);
 
 /**
  * Create new mrb_state with just the mruby core
@@ -1258,13 +1256,10 @@ MRB_API mrb_state* mrb_open_allocf(mrb_allocf f, void *ud);
  * @param f
  *      Reference to the allocation function.
  *      Use mrb_default_allocf for the default
- * @param ud
- *      User data will be passed to custom allocator f.
- *      If user data isn't required just pass NULL.
  * @return
  *      Pointer to the newly created mrb_state.
  */
-MRB_API mrb_state* mrb_open_core(mrb_allocf f, void *ud);
+MRB_API mrb_state* mrb_open_core(mrb_allocf f);
 
 /**
  * Closes and frees a mrb_state.
@@ -1279,7 +1274,7 @@ MRB_API void mrb_close(mrb_state *mrb);
  *
  * @see mrb_allocf
  */
-MRB_API void* mrb_default_allocf(mrb_state*, void*, size_t, void*);
+MRB_API void* mrb_default_allocf(mrb_state*, void*, size_t);
 
 MRB_API mrb_value mrb_top_self(mrb_state *mrb);
 

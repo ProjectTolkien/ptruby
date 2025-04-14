@@ -194,10 +194,10 @@ mrb_realloc_simple(mrb_state *mrb, void *p,  size_t len)
     mrb_full_gc(mrb);
   }
 #endif
-  p2 = (mrb->allocf)(mrb, p, len, mrb->allocf_ud);
+  p2 = (mrb->allocf)(mrb, p, len);
   if (!p2 && len > 0 && mrb->gc.heaps && mrb->gc.state != MRB_GC_STATE_SWEEP) {
     mrb_full_gc(mrb);
-    p2 = (mrb->allocf)(mrb, p, len, mrb->allocf_ud);
+    p2 = (mrb->allocf)(mrb, p, len);
   }
 
   return p2;
@@ -256,7 +256,7 @@ mrb_calloc(mrb_state *mrb, size_t nelem, size_t len)
 MRB_API void
 mrb_free(mrb_state *mrb, void *p)
 {
-  (mrb->allocf)(mrb, p, 0, mrb->allocf_ud);
+  (mrb->allocf)(mrb, p, 0);
 }
 
 MRB_API void*
@@ -406,8 +406,7 @@ MRB_API void
 mrb_gc_protect(mrb_state *mrb, mrb_value obj)
 {
   if (mrb_immediate_p(obj)) return;
-  struct RBasic *p = mrb_basic_ptr(obj);
-  if (is_red(p)) return;
+  void *p = mrb_basic_ptr(obj);
   gc_arena_keep(mrb, &mrb->gc);
   gc_protect(mrb, &mrb->gc, p);
 }

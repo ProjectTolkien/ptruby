@@ -63,7 +63,7 @@
 //#define MRB_WORD_BOXING
 
 /* represent mrb_value as a struct; occupies 2 words */
-//#define MRB_NO_BOXING
+#define MRB_NO_BOXING
 
 /* if no specific boxing type is chosen */
 #if !defined(MRB_NAN_BOXING) && !defined(MRB_WORD_BOXING) && !defined(MRB_NO_BOXING)
@@ -101,12 +101,12 @@
 /* maximum length of strings */
 /* the default value is 1MB */
 /* set this value to zero to skip the check */
-//#define MRB_STR_LENGTH_MAX 1048576
+#define MRB_STR_LENGTH_MAX 0
 
 /* maximum length of arrays */
 /* the default value is 2**17 entries */
 /* set this value to zero to skip the check */
-//#define MRB_ARY_LENGTH_MAX 131072
+#define MRB_ARY_LENGTH_MAX 0
 
 /* argv max size in mrb_funcall */
 //#define MRB_FUNCALL_ARGC_MAX 16
@@ -147,13 +147,14 @@
 //#define MRB_GC_FIXED_ARENA
 
 /* state atexit stack size */
-//#define MRB_FIXED_STATE_ATEXIT_STACK_SIZE 5
+/* #define MRB_FIXED_STATE_ATEXIT_STACK_SIZE 5 */
 
 /* fixed size state atexit stack */
-//#define MRB_FIXED_STATE_ATEXIT_STACK
+/* #define MRB_FIXED_STATE_ATEXIT_STACK */
 
 /* -DMRB_NO_XXXX to drop following features */
-//#define MRB_NO_STDIO /* use of stdio */
+/* #define MRB_NO_STDIO */
+#define MRB_NO_GC
 
 /* -DMRB_USE_XXXX to enable following features */
 //#define MRB_USE_DEBUG_HOOK /* hooks for debugger */
