@@ -166,7 +166,7 @@ struct mrb_state;
  *
  * See @see mrb_default_allocf for the default implementation.
  */
-typedef void* (*mrb_allocf) (struct mrb_state *mrb, void *ptr, size_t size);
+typedef void* (*mrb_allocf) (void *ptr, size_t size);
 
 #ifndef MRB_FIXED_STATE_ATEXIT_STACK_SIZE
 #define MRB_FIXED_STATE_ATEXIT_STACK_SIZE 5
@@ -1274,7 +1274,7 @@ MRB_API void mrb_close(mrb_state *mrb);
  *
  * @see mrb_allocf
  */
-MRB_API void* mrb_default_allocf(mrb_state*, void*, size_t);
+MRB_API void* mrb_default_allocf(void*, size_t);
 
 MRB_API mrb_value mrb_top_self(mrb_state *mrb);
 

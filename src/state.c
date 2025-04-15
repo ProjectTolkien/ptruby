@@ -42,7 +42,7 @@ mrb_open_core(mrb_allocf f)
   mrb_state *mrb;
 
   if (f == NULL) f = mrb_default_allocf;
-  mrb = (mrb_state*)(f)(NULL, NULL, sizeof(mrb_state));
+  mrb = (mrb_state*)(f)(NULL, sizeof(mrb_state));
   if (mrb == NULL) return NULL;
 
   *mrb = mrb_state_zero;
